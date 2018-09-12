@@ -2,15 +2,15 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/leogsouza/udemy-clone/server/courses"
 )
 
 func main() {
-	router := gin.Default()
-	router.GET("/", func (c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello Clone!",
-		})		
-	})
+	r := gin.Default()
 
-	router.Run(":3000")
+	v1 := r.Group("/api")
+
+	courses.CoursesRegister(v1.Group("/courses"))
+
+	r.Run()
 }
