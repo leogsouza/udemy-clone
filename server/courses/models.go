@@ -14,7 +14,7 @@ type CourseModel struct {
 }
 
 // GetAllCourses retrieves all courses in database
-func GetAllCourses() ([]CourseModel, error) {
+func GetAll() ([]CourseModel, error) {
 	db := common.GetDB()
 	var models []CourseModel
 
@@ -23,9 +23,31 @@ func GetAllCourses() ([]CourseModel, error) {
 	return models, err
 }
 
-func SaveOne(c *CourseModel) error {
+func GetOne(condition interface{}) (CourseModel, error) {
+	db := common.GetDB()
+	var model CourseModel
+	err := db.First(&model).Error
+
+	return model, err
+}
+
+func SaveOne(model *CourseModel) error {
+	db := common.GetDB()
+	err := db.Save(model).Error
+
+	return err
+}
+
+func (c *CourseModel) Update() error {
 	db := common.GetDB()
 	err := db.Save(c).Error
+
+	return err
+}
+
+func (c *CourseModel) Delete(condition interface{}) error {
+	db := common.GetDB()
+	err := db.Where(condition).Delete(c).Error
 
 	return err
 }
