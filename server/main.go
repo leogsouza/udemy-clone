@@ -5,10 +5,12 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/leogsouza/udemy-clone/server/common"
 	"github.com/leogsouza/udemy-clone/server/courses"
+	"github.com/leogsouza/udemy-clone/server/users"
 )
 
 func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&courses.CourseModel{})
+	db.AutoMigrate(&users.UserModel{})
 }
 
 func main() {
@@ -21,6 +23,7 @@ func main() {
 	v1 := r.Group("/api")
 
 	courses.Register(v1.Group("/courses"))
+	users.Register(v1.Group("/users"))
 
 	r.Run()
 }

@@ -13,7 +13,7 @@ type CourseModel struct {
 	Cover       string
 }
 
-// GetAllCourses retrieves all courses in database
+// GetAll retrieves all courses in database
 func GetAll() ([]CourseModel, error) {
 	db := common.GetDB()
 	var models []CourseModel
@@ -23,6 +23,7 @@ func GetAll() ([]CourseModel, error) {
 	return models, err
 }
 
+// GetOne retrieves one course in database
 func GetOne(condition interface{}) (CourseModel, error) {
 	db := common.GetDB()
 	var model CourseModel
@@ -31,6 +32,7 @@ func GetOne(condition interface{}) (CourseModel, error) {
 	return model, err
 }
 
+// SaveOne saves a course in database
 func SaveOne(model *CourseModel) error {
 	db := common.GetDB()
 	err := db.Save(model).Error
@@ -38,6 +40,7 @@ func SaveOne(model *CourseModel) error {
 	return err
 }
 
+// Update updates a course in database
 func (c *CourseModel) Update() error {
 	db := common.GetDB()
 	err := db.Save(c).Error
@@ -45,6 +48,7 @@ func (c *CourseModel) Update() error {
 	return err
 }
 
+// Delete deletes a course in database
 func (c *CourseModel) Delete(condition interface{}) error {
 	db := common.GetDB()
 	err := db.Where(condition).Delete(c).Error

@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: API for Udemy Clone
+  description: An API for Udemy Clone
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/v1
+
+paths:
+  /users:
+    get:
+      summary: Returns a list of users
+      description: Returns all users in database
+      tags:
+        - users
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                    example:
+                    - name: Leonardo
+                      username: leonardo
+                      email: leonardo@leonardo.com.br
+                    - name: Astolfo
+                      username: Astolfo
+                      email: astolfo.dutra@minas.com
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - username
+        - email
+      properties:
+        name:
+          type: string          
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+    
